@@ -1,0 +1,85 @@
+/* Animasi Card - Desktop & Mobile */
+.work-card {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    will-change: transform, opacity;
+}
+
+.work-card.animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Hover effect hanya aktif di desktop (non-touch device) */
+@media (hover: hover) and (pointer: fine) {
+    .work-card a.card:hover {
+        transform: translateY(-6px) !important;
+        box-shadow: 0 8px 20px rgba(13, 71, 161, 0.2) !important;
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .work-card a.card:hover .card-img-top {
+        transform: scale(1.03);
+    }
+}
+
+/* Floating Upload Button */
+.fixed-upload-btn {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1050;
+    transition: all 0.3s ease;
+    font-size: 1.2rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.fixed-upload-btn:hover {
+    transform: scale(1.15) rotate(8deg);
+    box-shadow: 0 8px 20px rgba(13, 71, 161, 0.35);
+}
+
+/* Tooltip hanya di desktop */
+@media (min-width: 768px) {
+    .fixed-upload-btn::after {
+        content: "Upload Karya";
+        position: absolute;
+        bottom: 70px;
+        right: 0;
+        background: rgba(0, 0, 0, 0.85);
+        color: white;
+        padding: 4px 10px;
+        border-radius: 4px;
+        font-size: 0.8rem;
+        white-space: nowrap;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+    }
+
+    .fixed-upload-btn:hover::after {
+        opacity: 1;
+    }
+}
+
+/* Mobile: sedikit lebih besar & responsif */
+@media (max-width: 767px) {
+    .fixed-upload-btn {
+        width: 60px;
+        height: 60px;
+        bottom: 16px;
+        right: 16px;
+        font-size: 1.3rem;
+    }
+
+    /* Nonaktifkan rotasi berlebihan di mobile */
+    .fixed-upload-btn:hover {
+        transform: scale(1.1) rotate(3deg);
+    }
+}
