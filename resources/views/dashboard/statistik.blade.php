@@ -441,22 +441,23 @@
         }
 
         // Role Chart
-        if (document.getElementById('roleChart')) {
-            const roleLabels = {!! $roleData->pluck('role')->map(fn($r) => ucfirst($r))->toJson() !!};
-            const roleCounts = {!! $roleData->pluck('count')->toJson() !!};
-            new Chart(document.getElementById('roleChart'), {
-                type: 'doughnut',
-                data: {
-                    labels: roleLabels,
-                    datasets: [{
-                        data: roleCounts,
-                        backgroundColor: ['#45B7D1', '#96CEB4', '#FFEAA7','#667eea'],
-                        borderWidth: 0
-                    }]
-                },
-                options: chartConfig
-            });
-        }
+// Role Chart
+if (document.getElementById('roleChart')) {
+    const roleLabels = {!! $roleData->pluck('name')->map(fn($name) => ucfirst($name))->toJson() !!};
+    const roleCounts = {!! $roleData->pluck('users_count')->toJson() !!};
+    new Chart(document.getElementById('roleChart'), {
+        type: 'doughnut',
+        data: {
+            labels: roleLabels,
+            datasets: [{
+                data: roleCounts,
+                backgroundColor: ['#45B7D1', '#96CEB4', '#FFEAA7', '#667eea', '#FF6B6B', '#4ECDC4'],
+                borderWidth: 0
+            }]
+        },
+        options: chartConfig
+    });
+}
     });
 </script>
 @endpush

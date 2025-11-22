@@ -7,14 +7,17 @@ use Illuminate\Support\Facades\Auth;
 
 class RoleMiddleware
 {
-    public function handle($request, Closure $next, ...$roles)
+    public function handle($request, Closure $next, ...$roleNames)
     {
         if (!Auth::check()) {
             return redirect()->route('login');
         }
 
-        if (!in_array(Auth::user()->role, $roles)) {
-            abort(403, 'Akses ditolak. Hanya admin/guru yang boleh mengakses.');
+        $user = Auth::user();
+
+        // Pastikan relasi hakguna diambil
+        if (!$user->hakguna || !in_array($user->hakguna->name, $roleNames)) {
+            abort(403, 'maksud lu apaan ?');
         }
 
         return $next($request);

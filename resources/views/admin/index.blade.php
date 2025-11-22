@@ -74,14 +74,18 @@
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->nis ?? '-' }}</td>
                             <td>
-                                @if($user->role === 'admin')
-                                    <span class="badge bg-secondary">Admin</span>
-                                @elseif($user->role === 'guru')
-                                    <span class="badge bg-primary">Guru</span>
-                                @elseif($user->role === 'siswa')
-                                    <span class="badge bg-success">Siswa</span>
-                                @elseif($user->role === 'guest')
-                                    <span class="badge bg-warning text-dark">Guest</span>
+                                @if($user->hakguna)
+                                    @if($user->hakguna->name === 'admin')
+                                        <span class="badge bg-secondary">Admin</span>
+                                    @elseif($user->hakguna->name === 'guru')
+                                        <span class="badge bg-primary">Guru</span>
+                                    @elseif($user->hakguna->name === 'siswa')
+                                        <span class="badge bg-success">Siswa</span>
+                                    @elseif($user->hakguna->name === 'guest')
+                                        <span class="badge bg-warning text-dark">Guest</span>
+                                    @endif
+                                @else
+                                    <span class="badge bg-danger">Tidak Valid</span>
                                 @endif
                             </td>
                             <td class="text-center">

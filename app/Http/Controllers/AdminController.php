@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Hakguna;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -37,7 +38,8 @@ class AdminController extends Controller
         if (!Auth::check() || !Auth::user()->isAdmin()) {
             return redirect('/')->with('error', 'Akses ditolak.');
         }
-        return view('admin.create');
+        $hakgunas = Hakguna::all();
+        return view('admin.create', compact('hakgunas'));
     }
 
     public function store(Request $request)
@@ -50,20 +52,21 @@ class AdminController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users',
             'nis' => $request->role === 'guest' ? 'nullable' : 'required|unique:users',
-            'role' => 'required|in:guru,siswa,admin,guest',
+            'role' => 'required|exists:hakgunas,id', // Validasi bahwa role adalah ID yang valid di tabel hakgunas
             'password' => 'required|string|min:6',
         ], [
             'email.unique' => 'Email sudah terdaftar.',
             'nis.unique' => 'NIS/NIP sudah digunakan.',
+            'role.exists' => 'Role yang dipilih tidak valid.',
         ]);
 
-        User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'nis' => $request->role === 'guest' ? null : $request->nis,
-            'role' => $request->role,
-            'password' => Hash::make($request->password),
-        ]);
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->nis = $request->role === 'guest' ? null : $request->nis;
+        $user->role = $request->role; // Ini adalah ID dari tabel hakgunas
+        $user->password = Hash::make($request->password);
+        $user->save();
 
         return redirect()->route('admin.index')->with('success', 'User berhasil ditambahkan.');
     }
@@ -74,7 +77,8 @@ class AdminController extends Controller
             abort(403);
         }
         $user = User::findOrFail($id);
-        return view('admin.edit', compact('user'));
+        $hakgunas = Hakguna::all();
+        return view('admin.edit', compact('user', 'hakgunas'));
     }
 
     public function update(Request $request, $id)
@@ -89,22 +93,20 @@ class AdminController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $id,
             'nis' => $request->role === 'guest' ? 'nullable' : 'required|unique:users,nis,' . $id,
-            'role' => 'required|in:guru,siswa,admin,guest',
+            'role' => 'required|exists:hakgunas,id', // Validasi bahwa role adalah ID yang valid di tabel hakgunas
             'password' => 'nullable|string|min:6|confirmed',
         ]);
 
-        $data = [
-            'name' => $request->name,
-            'email' => $request->email,
-            'role' => $request->role,
-            'nis' => $request->role === 'guest' ? null : $request->nis,
-        ];
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->role = $request->role; // Ini adalah ID dari tabel hakgunas
+        $user->nis = $request->role === 'guest' ? null : $request->nis;
 
         if ($request->filled('password')) {
-            $data['password'] = Hash::make($request->password);
+            $user->password = Hash::make($request->password);
         }
 
-        $user->update($data);
+        $user->save();
 
         return redirect()->route('admin.index')->with('success', 'User berhasil diperbarui.');
     }
@@ -129,7 +131,8 @@ class AdminController extends Controller
         if (!Auth::user()->isAdmin()) {
             abort(403);
         }
-        return view('admin.import');
+        $hakgunas = Hakguna::all();
+        return view('admin.import', compact('hakgunas'));
     }
 
     public function import(Request $request)

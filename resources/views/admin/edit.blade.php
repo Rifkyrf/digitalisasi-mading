@@ -21,10 +21,9 @@
         <div class="mb-3">
             <label>Role</label>
             <select name="role" class="form-control" id="roleSelect" required>
-                <option value="admin" {{ old('role', $user->role) === 'admin' ? 'selected' : '' }}>Admin</option>
-                <option value="guru" {{ old('role', $user->role) === 'guru' ? 'selected' : '' }}>Guru</option>
-                <option value="siswa" {{ old('role', $user->role) === 'siswa' ? 'selected' : '' }}>Siswa</option>
-                <option value="guest" {{ old('role', $user->role) === 'guest' ? 'selected' : '' }}>Guest</option>
+                @foreach($hakgunas as $hakguna)
+                <option value="{{ $hakguna->id }}">{{ $hakguna->name }}</option>
+            @endforeach
             </select>
         </div>
         <div class="mb-3">
