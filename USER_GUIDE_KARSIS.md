@@ -1,5 +1,61 @@
-# 📚 USER GUIDE APLIKASI KARSIS
+# 📚 USER GUIDE MADING DIGITAL
 *Sistem Manajemen Karya Siswa Digital*
+
+---
+
+## 📑 DAFTAR ISI
+
+**BAGIAN I - PENGENALAN SISTEM**
+1. [Tentang Aplikasi](#-tentang-aplikasi)
+   - Fitur Utama
+   - Keunggulan Sistem
+
+**BAGIAN II - PANDUAN PENGGUNA**
+2. [Panduan Berdasarkan Role](#-panduan-berdasarkan-role)
+   - 2.1 Admin (Akses Penuh)
+   - 2.2 Guru (Moderator)
+   - 2.3 Siswa (Content Creator)
+   - 2.4 Guest (Visitor)
+
+**BAGIAN III - OPERASIONAL SISTEM**
+3. [Cara Upload Karya](#-cara-upload-karya)
+   - Langkah Upload
+   - Format File Didukung
+4. [Sistem Moderasi](#-sistem-moderasi)
+   - Workflow Moderasi
+   - Proses Review
+5. [Sistem Notifikasi](#-sistem-notifikasi)
+   - Email Notifications
+   - Database Notifications
+
+**BAGIAN IV - FITUR LANJUTAN**
+6. [Dashboard Statistik](#-dashboard-statistik)
+   - Metrics & Analytics
+   - Export Features
+7. [Manajemen OSIS](#-manajemen-osis)
+   - Struktur Organisasi
+   - Halaman Publik
+8. [Interaksi Sosial](#-interaksi-sosial)
+   - Like System
+   - Comment System
+
+**BAGIAN V - TEKNIS & KEAMANAN**
+9. [Autentikasi & Keamanan](#-autentikasi--keamanan)
+   - Multi-Mode Login
+   - Password Reset
+10. [Pencarian](#-pencarian)
+    - Global Search
+    - Filter System
+11. [Responsive Design](#-responsive-design)
+    - Mobile Features
+    - Desktop Features
+
+**BAGIAN VI - SUPPORT & BANTUAN**
+12. [Troubleshooting](#-troubleshooting)
+    - Masalah Umum
+    - Solusi Cepat
+13. [Kontak Support](#-kontak-support)
+14. [FAQ](#-faq)
 
 ---
 

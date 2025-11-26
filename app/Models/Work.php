@@ -65,6 +65,7 @@ class Work extends Model
             'harian' => 'daily',
             'prestasi' => 'prestasi',
             'opini' => 'opini',
+            'event' => 'event',
         ];
         return $labels[$this->type] ?? 'Konten';
     }

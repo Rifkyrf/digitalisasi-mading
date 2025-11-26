@@ -136,10 +136,9 @@ class WorkController extends Controller
                 'work_title' => $work->title,
             ]);
 
-            // Ambil semua user dengan role admin atau guru
-            $adminsAndGurus = User::where(function ($query) {
-                $query->where('role', 'admin')
-                    ->orWhere('role', 'guru');
+            // Ambil semua user dengan role admin atau guru (menggunakan relasi hakguna)
+            $adminsAndGurus = User::whereHas('hakguna', function ($query) {
+                $query->whereIn('name', ['admin', 'guru']);
             })->get();
 
             Log::info('Menemukan '.$adminsAndGurus->count().' admin/guru untuk dikirimi email.', ['users' => $adminsAndGurus->pluck('email')->toArray()]);
@@ -230,7 +229,7 @@ class WorkController extends Controller
         }
 
         $allowedTypes = ['karya', 'mading'];
-        if (Auth::user()->isGuru() || Auth::user()->isAdmin()) {
+        if (Auth::user()->isGuru() || Auth::user()->isAdmin()||Auth::user()->isSiswa()) {
             $allowedTypes = array_merge($allowedTypes, ['karya', 'mading', 'harian', 'mingguan', 'opini', 'prestasi', 'event']);
         }
 

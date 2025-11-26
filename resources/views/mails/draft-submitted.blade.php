@@ -70,7 +70,7 @@
 
                         <!-- Tombol CTA (Call to Action) -->
                         <div style="text-align: center; margin: 30px 0;">
-                            <a href="{{ route('moderator.show', $work) }}"
+                            <a href="{{ route('moderasi.drafts') }}"
                                 style="background-color: #0056b3; /* Biru terang untuk CTA */
                                         color: white;
                                         padding: 12px 25px;

@@ -8,7 +8,7 @@
 - **Nama Aplikasi**: KARSIS (Karya Siswa)
 - **Tujuan**: Platform digital untuk mengelola karya siswa
 - **Target User**: Admin, Guru, Siswa, Guest
-- **Tech Stack**: Laravel 11 + MySQL + Bootstrap
+- **Tech Stack**: Laravel 12 + MySQL + Bootstrap
 
 ---
 

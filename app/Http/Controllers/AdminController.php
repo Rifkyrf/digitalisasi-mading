@@ -52,7 +52,7 @@ class AdminController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users',
             'nis' => $request->role === 'guest' ? 'nullable' : 'required|unique:users',
-            'role' => 'required|exists:hakgunas,id', // Validasi bahwa role adalah ID yang valid di tabel hakgunas
+            'role' => 'required|exists:hakguna,id', // Validasi bahwa role adalah ID yang valid di tabel hakgunas
             'password' => 'required|string|min:6',
         ], [
             'email.unique' => 'Email sudah terdaftar.',
@@ -93,7 +93,7 @@ class AdminController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $id,
             'nis' => $request->role === 'guest' ? 'nullable' : 'required|unique:users,nis,' . $id,
-            'role' => 'required|exists:hakgunas,id', // Validasi bahwa role adalah ID yang valid di tabel hakgunas
+            'role' => 'required|exists:hakguna,id', // Validasi bahwa role adalah ID yang valid di tabel hakgunas
             'password' => 'nullable|string|min:6|confirmed',
         ]);
 

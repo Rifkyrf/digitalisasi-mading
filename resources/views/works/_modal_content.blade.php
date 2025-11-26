@@ -10,7 +10,7 @@
                 <strong>{{ $work->user->name }}</strong>
                 <p class="mb-0 text-muted small">
                     {{ $work->user->nis ?? 'NIS tidak tersedia' }} •
-                    <span class="badge bg-info">{{ ucfirst($work->user->role ?? 'siswa') }}</span>
+                    <span class="badge bg-info">{{ ucfirst($work->user->hakguna->name ?? 'siswa') }}</span>
                 </p>
             </div>
         </div>
@@ -109,7 +109,7 @@
                             <strong>{{ $comment->user->name }}:</strong>
                             {{ $comment->content }}
                             <small class="text-muted ms-2">{{ $comment->created_at->diffForHumans() }}</small>
-                            @if(auth()->check() && (auth()->id() === $comment->user_id || auth()->user()->role === 'admin'))
+                            @if(auth()->check() && (auth()->id() === $comment->user_id || auth()->user()->isAdmin()))
                                 <div class="btn-group btn-group-sm ms-2">
                                     <button class="btn btn-xs btn-outline-warning edit-comment-btn"
                                             data-comment-id="{{ $comment->id }}"
@@ -144,7 +144,10 @@
                 </a>
             @endif
 
-            @if(auth()->check() && (auth()->id() === $work->user_id || auth()->user()->role === 'admin' || auth()->user()->role === 'guru'))
+            @if(auth()->check() && (auth()->id() === $work->user_id || auth()->user()->isAdmin() || auth()->user()->isGuru()))
+                <a href="{{ route('works.edit', $work->id) }}" class="btn btn-warning btn-sm">
+                    <i class="fas fa-edit me-1"></i> Edit
+                </a>
                 <form method="POST" action="{{ route('work.destroy', $work->id) }}" class="d-inline">
                     @csrf
                     @method('DELETE')
@@ -152,11 +155,6 @@
                         <i class="fas fa-trash me-1"></i> Hapus
                     </button>
                 </form>
-                @if(Auth::check() && ($work->user_id == Auth::id() || Auth::user()->isAdmin()))
-                <a href="{{ route('work.edit', $work->id) }}" class="btn btn-warning px-4">
-                    <i class="fas fa-edit me-2"></i> Edit
-                </a>
-            @endif
             @endif
         </div>
 

@@ -24,7 +24,7 @@ class RegisteredUserController extends Controller
             'name' => 'Guest ' . strtok($request->email, '@'),
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role' => 'guest',
+            'role' => '4',
         ]);
 
         auth()->login($user);
